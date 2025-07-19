@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 export default function ProtectedRoute({ isClosed, children }) {
   // save current route, to redirect after login
   const location = useLocation();
-  const isLoggedIn = true;
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
     if (isClosed && !isLoggedIn) {

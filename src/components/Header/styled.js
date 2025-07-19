@@ -9,9 +9,16 @@ export const Nav = styled.nav`
   align-items: center;
 
   a {
+    font-size: 20px;
     color: white;
     font-weight: bolder;
     text-shadow: 2px 2px 0px black;
+  }
+  a:hover,
+  button:hover {
+    color: aquamarine;
+  }
+  button {
   }
 `;
 
@@ -19,6 +26,7 @@ export const Nav = styled.nav`
 export const RightSideNav = styled.div`
   display: flex;
   margin-left: auto;
+  align-items: center;
 
   a {
     margin: 0 15px;

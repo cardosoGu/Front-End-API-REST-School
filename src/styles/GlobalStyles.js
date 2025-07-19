@@ -29,6 +29,7 @@ button{
   font-weight: 700;
 }
 
+
 a{
   text-decoration: none;
   color: ${colors.primaryColor};
@@ -46,4 +47,8 @@ export const Container = styled.section`
   border-radius: 4px;
   padding: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+  button:hover {
+    background-color: blueviolet;
+  }
 `;
