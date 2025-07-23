@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,9 @@ import { registerUser } from '../../store/authThunk';
 
 function Register() {
   const error = useSelector((state) => state.auth.error);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
@@ -30,6 +33,9 @@ function Register() {
       }
     }
   }, [error]);
+  if (isLoggedIn) {
+    return <Navigate to="/" replace state={{ prevPath: location.pathname }} />;
+  }
 
   return (
     <Container>

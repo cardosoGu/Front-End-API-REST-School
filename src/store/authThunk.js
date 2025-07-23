@@ -8,7 +8,7 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post('/token/store', userData);
       return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.response.data.message);
+      return thunkAPI.rejectWithValue(e.response.data);
     }
   }
 );

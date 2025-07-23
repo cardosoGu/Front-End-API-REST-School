@@ -1,7 +1,10 @@
 import styled from 'styled-components';
+import { FaPlus, FaTrash } from 'react-icons/fa';
 import { warningColor } from '../../config/color';
 
 export const StudentsList = styled.div`
+  display: flex;
+  flex-direction: column;
   div {
     padding: 10px 0;
     border-bottom: 1px solid;
@@ -27,7 +30,7 @@ export const StudentsList = styled.div`
   }
 
   span {
-    font-weight: bolder;
+    font-weight: 600;
   }
 `;
 
@@ -40,4 +43,20 @@ export const Title = styled.h1`
   font-size: 60px;
   font-weight: bolder;
   padding-bottom: 30px;
+  text-align: center;
+`;
+
+export const Paragraph = styled.p`
+  font-size: 60px;
+  font-weight: bolder;
+  padding-bottom: 30px;
+  text-align: center;
+`;
+export const AddButton = styled.button`
+  display: flex;
+  margin-left: auto;
+  background-color: aliceblue;
+  border: solid 1px black;
+  color: black;
+  padding: 10px;
 `;
