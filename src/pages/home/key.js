@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Title, Paragraph } from './styled';
 
 export function Key({ data }) {
-  if (!data) return <Paragraph>Carregando...</Paragraph>;
+  if (!data) return null;
   return (
     <>
       {Object.entries(data).map(([key, value], i) => (

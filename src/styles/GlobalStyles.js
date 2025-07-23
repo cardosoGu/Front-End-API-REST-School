@@ -12,7 +12,6 @@ export default createGlobalStyle`
 body{
   font-family: sans-serif;
   background-color: ${colors.primaryDarkColor};
-  color: ${colors.primaryColor}
 }
 
 html, body, #root{
@@ -50,5 +49,6 @@ export const Container = styled.section`
 
   button:hover {
     background-color: blueviolet;
+    filter: brightness(85%);
   }
 `;

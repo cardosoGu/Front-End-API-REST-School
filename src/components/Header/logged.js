@@ -52,7 +52,7 @@ function Logged({ isLogged }) {
       <button type="button" onClick={handleLogin}>
         teste login
       </button>
-      <Link to="/user">Login</Link>
+      <Link to="user/login">Login</Link>
     </RightSideNav>
   );
 }

@@ -11,7 +11,7 @@ export default function ProtectedRoute({ isClosed, children }) {
 
   useEffect(() => {
     if (isClosed && !isLoggedIn) {
-      toast.error('Você precisa estar logado!'); // flash message
+      toast.error('Please log in to continue!'); // flash message
     }
   }, [isClosed, isLoggedIn]);
 
@@ -19,7 +19,7 @@ export default function ProtectedRoute({ isClosed, children }) {
   if (isClosed && !isLoggedIn) {
     return (
       <Navigate
-        to="/login"
+        to="/user/login"
         replace
         // send current route to state
         state={{ prevPath: location.pathname }}

@@ -1,9 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { loginUser } from './authThunk';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { loginUser, registerUser } from './authThunk';
 
 const initialState = {
   isLoggedIn: false,
   loading: false,
+  token: null,
+  // if there is error, to catch need error.error, cause API send {error: []}
   error: null,
   payload: null,
 };
@@ -21,19 +23,31 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addMatcher(isAnyOf(loginUser.pending, registerUser.pending), (state) => {
         state.loading = true;
         state.error = null;
+        state.isLoggedIn = false;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.payload = action.payload;
-        state.error = null;
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loading = true;
-        state.error = action.payload;
-      });
+
+      .addMatcher(
+        // add matcher, add 2 cases, is any of these 2 actions?
+        isAnyOf(loginUser.fulfilled, registerUser.fulfilled),
+        (state, action) => {
+          state.loading = false;
+          state.payload = action.payload;
+          state.token = action.payload.token;
+          state.isLoggedIn = true;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(loginUser.rejected, registerUser.rejected),
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+          state.isLoggedIn = false;
+        }
+      );
   },
 });
 

@@ -2,8 +2,10 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import ProtectedRoute from '../services/ProtectedRoute';
-import Login from '../pages/Login';
+import Home from '../pages/home';
 import Page404 from '../pages/Page404';
+import StudentsRoutes from './studentsRoutes';
+import UserRoutes from './userRoutes';
 
 function AppRoutes() {
   return (
@@ -12,11 +14,12 @@ function AppRoutes() {
         path="/"
         element={
           <ProtectedRoute isClosed>
-            <Login />
+            <Home />
           </ProtectedRoute>
         }
       />
-
+      {StudentsRoutes()}
+      {UserRoutes()}
       <Route path="*" element={<Page404 />} />
     </Routes>
   );
