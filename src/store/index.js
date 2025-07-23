@@ -3,7 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers } from 'redux';
 import auth from './authSlice';
-
+import { setupInterceptors } from '../services/axios';
 // config persist
 const persistConfig = {
   key: 'root',
@@ -27,6 +27,9 @@ const store = configureStore({
       serializableCheck: false,
     }),
 });
+
+setupInterceptors(store);
+// tive q passar store aq, porque qnd eu importava dava erro de import/no-cycle
 
 // to use into the app to persist
 export const Persistor = persistStore(store);

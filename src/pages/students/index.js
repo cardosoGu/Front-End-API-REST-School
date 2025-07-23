@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaUserCircle, FaEdit, FaWindowClose } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUserCircle, FaEdit, FaWindowClose, FaPlus } from 'react-icons/fa';
 import { Container } from '../../styles/GlobalStyles';
-import { Title, ProfilesPhotos, StudentsList } from './styled';
+import { Title, ProfilesPhotos, StudentsList, AddButton } from './styled';
 import axios from '../../services/axios';
 
 function Students() {
+  const navigate = useNavigate();
   const [students, setStudents] = useState([]);
   useEffect(() => {
     async function getData() {
@@ -19,6 +20,9 @@ function Students() {
     <Container>
       <Title>Students</Title>
       <StudentsList>
+        <AddButton onClick={() => navigate('/student/store')}>
+          <FaPlus />
+        </AddButton>
         {students.map((student) => (
           <div key={student.id}>
             <Link to={`/student/edit/${student.id}`}>
