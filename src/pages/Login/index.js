@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Container } from '../../styles/GlobalStyles';
 import { Title, Form } from './styled';
 import { loginUser } from '../../store/authThunk';
+import Loading from '../../components/loading';
 
 function Login() {
+  const loading = useSelector((state) => state.auth.loading);
   const location = useLocation();
+  const navigate = useNavigate();
   const error = useSelector((state) => state.auth.error);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
@@ -30,11 +33,15 @@ function Login() {
     } else toast.error(errors);
   }, [error]);
 
-  if (isLoggedIn) {
-    return <Navigate to="/" replace state={{ prevPath: location.pathname }} />;
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/', { state: { prevPath: location.pathname } });
+    }
+  }, [isLoggedIn, navigate, location.pathname]);
+
   return (
     <Container>
+      <Loading loading={loading} />
       <Title>Login</Title>
       <Form>
         <label htmlFor="email">

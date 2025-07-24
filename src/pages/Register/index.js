@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../styles/GlobalStyles';
 import { Title, Form } from './styled';
 import { registerUser } from '../../store/authThunk';
+import Loading from '../../components/loading';
 
 function Register() {
   const error = useSelector((state) => state.auth.error);
+  const loading = useSelector((state) => state.auth.loading);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
 
@@ -39,6 +41,7 @@ function Register() {
 
   return (
     <Container>
+      <Loading loading={loading} />
       <Title>Register</Title>
 
       <Form>

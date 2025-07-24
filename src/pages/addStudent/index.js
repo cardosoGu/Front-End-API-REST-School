@@ -19,11 +19,24 @@ function AddStudent() {
     const data = { nome, sobrenome, email, idade, peso, altura };
 
     try {
+      if (!nome || !sobrenome) {
+        return toast.error('Student must have a name and last name');
+      }
+      if (altura > 2.1 || altura < 1) {
+        return toast.error('invalid height');
+      }
+      if (peso < 40 || altura > 250) {
+        return toast.error('invalid weight');
+      }
+      if (idade < 6 || altura > 30) {
+        return toast.error('student age invalid');
+      }
+
       await axios.post('/alunos/store', data);
-      toast.success('Student created Sucessfull!!');
-      navigate('/students');
+      toast.success('Student created Sucessfully!!');
+      return navigate('/students');
     } catch (err) {
-      err.response.data.errors.map((erro) => toast.error(erro));
+      return err.response.data.errors.map((erro) => toast.error(erro));
     }
   };
 

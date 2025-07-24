@@ -5,10 +5,11 @@ import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { Container } from '../../styles/GlobalStyles';
 import { Title, ProfilesPhotos, Form, Photo } from './styled';
+import Loading from '../../components/loading';
 import axios from '../../services/axios';
 
 function Students() {
-  const token = useSelector((state) => state.auth.token);
+  const loading = useSelector((state) => state.auth.loading);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -39,7 +40,6 @@ function Students() {
 
   const handleDelete = async (e) => {
     try {
-      e.preventDefault();
       await axios.delete(`/alunos/delete/${id}`);
       navigate('/students');
     } catch (err) {
@@ -51,8 +51,8 @@ function Students() {
     }
   };
   const handleEdit = async (e) => {
-    e.preventDefault();
     const body = { nome, sobrenome, email, idade, peso, altura };
+
     try {
       await axios.put(`/alunos/update/${id}`, body);
       navigate('/students');
@@ -67,6 +67,7 @@ function Students() {
 
   return (
     <Container>
+      <Loading loading={loading} />
       <Title>Students</Title>
 
       {student ? (
@@ -134,11 +135,11 @@ function Students() {
               />
             </label>
             <div className="buttons">
-              <button type="submit" onClick={handleEdit}>
+              <button type="button" onClick={handleEdit}>
                 <FaEdit size={25} />
               </button>
 
-              <button type="submit" onClick={handleDelete}>
+              <button type="button" onClick={handleDelete}>
                 <FaTrash size={25} />
               </button>
               <button

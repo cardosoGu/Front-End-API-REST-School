@@ -1,24 +1,46 @@
 import styled from 'styled-components';
 import { warningColor } from '../../config/color';
 
-export const Centered = styled.div`
-  color: red;
+export const Form = styled.form`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 
-  padding: 30px 0 50px 0;
+  label {
+    font-size: 23px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    text-align: center;
+    padding: 10px 100px;
+    font-size: 17px;
+    font-weight: 900px;
+    border: 1px solid black;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  button {
+    margin: 10px;
+    padding: 15px 100px;
+  }
 `;
 
 export const Title = styled.h1`
   font-size: 60px;
   font-weight: bolder;
   padding-bottom: 30px;
+  text-align: center;
 `;
 
 export const Paragraph = styled.p`
-  font-size: 50px;
-  font-weight: bolder;
-`;
-
-export const ReturnHome = styled.button`
-  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: px;
+  white-space: pre-line;
 `;

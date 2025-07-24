@@ -12,7 +12,7 @@ function UserRoutes() {
       <Route path="/user/login" element={<Login />} />
       <Route path="/user/register" element={<Register />} />
       <Route
-        path="/user/userConfig"
+        path="/user/config"
         element={
           <ProtectedRoute isClosed>
             <User />

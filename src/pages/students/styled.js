@@ -17,6 +17,7 @@ export const StudentsList = styled.div`
 
   div > a {
     display: grid;
+
     grid-template-columns: 60px 1fr 1fr; /* foto | nome | email */
     align-items: center;
     gap: 50px;
@@ -25,12 +26,11 @@ export const StudentsList = styled.div`
     text-decoration: none;
   }
 
-  div > a:hover {
-    text-decoration: underline;
-  }
-
   span {
     font-weight: 600;
+  }
+  button:hover {
+    background-color: azure;
   }
 `;
 

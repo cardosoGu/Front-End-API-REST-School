@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 
-const Title = styled.h1`
-  background: green;
-  small {
-    font-family: sans-serif;
-    margin-left: 15px;
-    color: blue;
-  }
+export const Title = styled.h1`
+  font-size: 60px;
+  text-align: center;
+  font-weight: bolder;
+  padding-bottom: 30px;
 `;
-
-const Paragraph = styled.p`
+export const Paragraph = styled.p`
   font-size: 60px;
   color: blue;
 `;
-
-export { Title, Paragraph };

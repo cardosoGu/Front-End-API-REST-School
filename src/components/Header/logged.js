@@ -7,7 +7,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { useDispatch } from 'react-redux';
 
 import { RightSideNav } from './styled';
-import { logOut, login } from '../../store/authSlice';
+import { logOut } from '../../store/authSlice';
 
 function Logged({ isLogged }) {
   const mySwal = withReactContent(Swal);
@@ -29,14 +29,10 @@ function Logged({ isLogged }) {
       });
   };
 
-  const handleLogin = () => {
-    dispatch(login());
-  };
-
   if (isLogged) {
     return (
       <RightSideNav>
-        <Link to="/user">
+        <Link to="/user/config">
           <FaUser size={30} />
         </Link>
 
@@ -49,9 +45,6 @@ function Logged({ isLogged }) {
 
   return (
     <RightSideNav>
-      <button type="button" onClick={handleLogin}>
-        teste login
-      </button>
       <Link to="user/login">Login</Link>
     </RightSideNav>
   );
