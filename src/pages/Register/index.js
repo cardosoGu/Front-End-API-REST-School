@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ function Register() {
   const loading = useSelector((state) => state.auth.loading);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -35,9 +36,12 @@ function Register() {
       }
     }
   }, [error]);
-  if (isLoggedIn) {
-    return <Navigate to="/" replace state={{ prevPath: location.pathname }} />;
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast.success('User registred');
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <Container>

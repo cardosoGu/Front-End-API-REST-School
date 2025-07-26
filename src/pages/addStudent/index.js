@@ -66,6 +66,7 @@ function AddStudent() {
       setLoading(false);
       return navigate('/students');
     } catch (err) {
+      setLoading(false);
       return err.response.data.errors.map((erro) => toast.error(erro));
     }
   };

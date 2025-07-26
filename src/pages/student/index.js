@@ -58,6 +58,7 @@ function Students() {
         } else {
           toast.error(err.message || 'An error occurred');
         }
+        setLoading(false);
         navigate('/students');
       }
     }
@@ -93,6 +94,7 @@ function Students() {
       } else {
         toast.error(err.message || 'An error occurred');
       }
+      setLoading(false);
     }
   };
 
@@ -125,6 +127,7 @@ function Students() {
       } else {
         toast.error(err.message || 'An error occurred');
       }
+      setLoading(false);
     }
   };
 
