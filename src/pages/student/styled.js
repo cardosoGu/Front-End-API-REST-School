@@ -3,12 +3,20 @@ import { FaPlus, FaTrash } from 'react-icons/fa';
 import { warningColor } from '../../config/color';
 
 export const ProfilesPhotos = styled.img`
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   display: block;
   margin: 0 auto;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  cursor: pointer;
 `;
+export const Paragraph = styled.p`
+  font-size: 25px;
+  font-weight: 600;
+`;
+
 export const Photo = styled.div`
   display: flex;
   justify-content: center;
@@ -62,5 +70,10 @@ export const Form = styled.form`
     margin-top: auto;
     font-weight: bolder;
     padding: 15px;
+  }
+  .divAdd {
+    margin-bottom: 30px;
+    margin-top: 10px;
+    cursor: pointer;
   }
 `;

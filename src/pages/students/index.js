@@ -3,18 +3,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle, FaEdit, FaWindowClose, FaPlus } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Container } from '../../styles/GlobalStyles';
-import { Title, ProfilesPhotos, StudentsList, AddButton } from './styled';
+import {
+  Title,
+  ProfilesPhotos,
+  StudentsList,
+  AddButton,
+  Paragraph,
+} from './styled';
 import axios from '../../services/axios';
 import Loading from '../../components/loading';
 
 function Students() {
-  const loading = useSelector((state) => state.auth.loading);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
   useEffect(() => {
     async function getData() {
+      setLoading(true);
       const response = await axios('/alunos');
       setStudents(response.data);
+      setLoading(false);
     }
     getData();
   }, []);
@@ -27,6 +35,7 @@ function Students() {
         <AddButton onClick={() => navigate('/student/store')}>
           <FaPlus />
         </AddButton>
+        {students.length === 0 ? <Paragraph>Add new Student</Paragraph> : null}
         {students.map((student) => (
           <div key={student.id}>
             <Link to={`/student/edit/${student.id}`}>

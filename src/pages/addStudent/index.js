@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { FaCircleUser, FaPlus } from 'react-icons/fa6';
 import { Container } from '../../styles/GlobalStyles';
-import { Title, Form } from './styled';
+import { Title, Form, ProfilesPhotos, Paragraph } from './styled';
 import axios from '../../services/axios';
+import Loading from '../../components/loading';
 
 function AddStudent() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(false);
+  const [photo, setPhoto] = useState('');
+  const [preview, setPreview] = useState('');
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
   const [email, setEmail] = useState('');
   const [idade, setIdade] = useState('');
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
+  const fileInputRef = useRef(null);
+
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const previewURL = URL.createObjectURL(file);
+      setPreview(previewURL);
+
+      setPhoto(file);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const data = { nome, sobrenome, email, idade, peso, altura };
 
     try {
@@ -25,15 +45,25 @@ function AddStudent() {
       if (altura > 2.1 || altura < 1) {
         return toast.error('invalid height');
       }
-      if (peso < 40 || altura > 250) {
+      if (peso < 40 || peso > 250) {
         return toast.error('invalid weight');
       }
-      if (idade < 6 || altura > 30) {
+      if (idade < 6 || idade > 30) {
         return toast.error('student age invalid');
       }
 
-      await axios.post('/alunos/store', data);
+      const response = await axios.post('/alunos/store', data);
+      const { id } = response.data;
+
+      if (photo) {
+        const formData = new FormData();
+        formData.append('photo', photo);
+        formData.append('aluno_id', id);
+
+        await axios.post('/photos', formData);
+      }
       toast.success('Student created Sucessfully!!');
+      setLoading(false);
       return navigate('/students');
     } catch (err) {
       return err.response.data.errors.map((erro) => toast.error(erro));
@@ -43,7 +73,50 @@ function AddStudent() {
   return (
     <Container>
       <Title>New student</Title>
+      <Loading loading={loading} />
       <Form>
+        <Paragraph>Student Photo</Paragraph>
+        {photo ? (
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={() => fileInputRef.current.click()}
+            onKeyDown={(e) => {
+              if (e.key === ' ') {
+                fileInputRef.current.click();
+              }
+            }}
+          >
+            <ProfilesPhotos src={preview} />
+          </div>
+        ) : (
+          <div
+            role="button"
+            tabIndex={0}
+            className="divAdd"
+            onMouseEnter={() => setImage(true)}
+            onMouseLeave={() => setImage(false)}
+            onClick={() => fileInputRef.current.click()}
+            onKeyDown={(e) => {
+              if (e.key === ' ') {
+                fileInputRef.current.click();
+              }
+            }}
+          >
+            {!image ? (
+              <FaCircleUser size={110} />
+            ) : (
+              <FaPlus size={110} className="photo" />
+            )}
+          </div>
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFile}
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+        />
         <label htmlFor="Name">
           Name
           <input
@@ -99,7 +172,7 @@ function AddStudent() {
           />
         </label>
         <button type="submit" onClick={handleSubmit}>
-          Login
+          Create
         </button>
       </Form>
     </Container>

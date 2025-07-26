@@ -7,8 +7,10 @@ const initialState = {
   token: null,
   // if there is error, to catch need error.error, cause API send {error: []}
   error: null,
-  payload: null,
+  user: null,
 };
+
+// to format pelyoad, cause payload was saving in differents ways each time when login
 
 const authSlice = createSlice({
   name: 'auth',
@@ -18,8 +20,8 @@ const authSlice = createSlice({
       return initialState;
     },
     setNewUser(state, action) {
-      state.payload.user.name = action.payload.nome;
-      state.payload.user.email = action.payload.email;
+      state.user = { nome: action.payload.nome, email: action.payload.email };
+      state.token = action.payload.token;
     },
   },
   extraReducers: (builder) => {
@@ -35,7 +37,11 @@ const authSlice = createSlice({
         isAnyOf(loginUser.fulfilled, registerUser.fulfilled),
         (state, action) => {
           state.loading = false;
-          state.payload = action.payload;
+          state.user = {
+            id: action.payload.user.id,
+            nome: action.payload.user.name,
+            email: action.payload.user.email,
+          };
           state.token = action.payload.token;
           state.isLoggedIn = true;
           state.error = null;

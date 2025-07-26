@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../styles/GlobalStyles';
 import { Title, Form, Paragraph } from './styled';
-
+import axios from '../../services/axios';
 import Loading from '../../components/loading';
-import { updateUser } from '../../store/updateUserThunk';
+
 import { setNewUser } from '../../store/authSlice';
 
 function UpdateUser() {
   const error = useSelector((state) => state.auth.error);
   const loading = useSelector((state) => state.auth.loading);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const user = useSelector((state) => state.auth.payload.user);
-  const location = useLocation();
+  const user = useSelector((state) => state.auth.user);
 
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState(user.email);
-  const [nome, setNome] = useState(user.name);
+  const [nome, setNome] = useState(user.nome);
   const [password, setPassword] = useState('');
   const [senhaAtual, setSenhaAtual] = useState('');
 
@@ -28,9 +29,13 @@ function UpdateUser() {
     e.preventDefault();
     try {
       const data = { nome, email, password, senhaAtual };
-      // unwrap, to return only payload
-      const updatedUser = await dispatch(updateUser(data)).unwrap();
-      dispatch(setNewUser(updatedUser)); // Atualiza o estado auth com o user novo
+
+      const updatedUser = await axios.put('/users/update', data);
+
+      // Atualiza o estado auth com o user novo
+      dispatch(setNewUser(updatedUser.data));
+      toast.success('User updated sucessfully');
+      navigate('/', { replace: true, state: { prevPath: location.pathname } });
     } catch (err) {
       if (err) {
         if (err.errors && Array.isArray(err.errors)) {
@@ -41,7 +46,7 @@ function UpdateUser() {
       }
     }
   };
-  // if error midify, there are errors, so show errors
+  // if error midify, there are errors, to show errors
   useEffect(() => {
     if (error) {
       if (error.errors && Array.isArray(error.errors)) {

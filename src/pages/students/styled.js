@@ -47,8 +47,8 @@ export const Title = styled.h1`
 `;
 
 export const Paragraph = styled.p`
-  font-size: 60px;
-  font-weight: bolder;
+  font-size: 30px;
+  font-weight: 600;
   padding-bottom: 30px;
   text-align: center;
 `;

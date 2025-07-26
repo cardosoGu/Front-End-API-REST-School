@@ -3,7 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers } from 'redux';
 import auth from './authSlice';
-import userUpdate from './updateUserSlice';
+
 import { setupInterceptors } from '../services/axios';
 // config persist
 const persistConfig = {
@@ -14,7 +14,6 @@ const persistConfig = {
 // reducers
 const rootReducer = combineReducers({
   auth,
-  userUpdate,
 });
 // combine persist with reducers to save in redux storage
 const persistedReducer = persistReducer(persistConfig, rootReducer);

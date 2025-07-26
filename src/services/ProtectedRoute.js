@@ -2,18 +2,24 @@ import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '../store/authSlice';
 
 export default function ProtectedRoute({ isClosed, children }) {
   // save current route, to redirect after login
+  const dispatch = useDispatch();
   const location = useLocation();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn, token } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    if (!token) {
+      dispatch(logOut());
+    }
+
     if (isClosed && !isLoggedIn) {
       toast.error('Please log in to continue!'); // flash message
     }
-  }, [isClosed, isLoggedIn]);
+  }, [isClosed, isLoggedIn, token, dispatch]);
 
   // if route is closed and user isnt logged
   if (isClosed && !isLoggedIn) {

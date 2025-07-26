@@ -33,6 +33,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'import/prefer-default-export': 'off',
     'jsx-a11y/control-has-associated-label': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
   },
   settings: {
     react: {
