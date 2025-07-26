@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import ProtectedRoute from '../services/ProtectedRoute';
 import Student from '../pages/student';
 import Students from '../pages/students';
-import Photos from '../pages/photos';
 import AddStudent from '../pages/addStudent';
 
 function StudentsRoutes() {
@@ -27,14 +26,7 @@ function StudentsRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/photo"
-        element={
-          <ProtectedRoute isClosed>
-            <Photos />
-          </ProtectedRoute>
-        }
-      />
+
       <Route
         path="/student/store"
         element={
