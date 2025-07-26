@@ -11,11 +11,12 @@ export default createGlobalStyle`
 
 body{
   font-family: sans-serif;
-  background-color: ${colors.primaryDarkColor};
+  background: ${colors.primaryDarkColor};
 }
 
 html, body, #root{
- height: 100%;
+ min-height: 100%;
+
 }
 
 button{

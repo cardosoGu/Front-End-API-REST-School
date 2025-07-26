@@ -3,7 +3,7 @@ import axios from 'axios';
 // http://35.247.228.63:81
 // http://localhost:3002
 const api = axios.create({
-  baseURL: 'http://localhost:3002',
+  baseURL: 'http://35.247.228.63:81',
 });
 
 // tive q passar store chamando essa funcao em store/index, porque qnd eu importava dava erro de import/no-cycle

@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import ProtectedRoute from '../services/ProtectedRoute';
 import User from '../pages/userUpdate';
-import Login from '../pages/login';
+import Login from '../pages/Login';
 import Register from '../pages/Register';
 
 function UserRoutes() {

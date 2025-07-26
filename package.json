@@ -2,6 +2,7 @@
   "name": "react-base",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://35.247.228.63:81/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "@testing-library/dom": "^10.4.0",
