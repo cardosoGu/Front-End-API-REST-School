@@ -103,8 +103,20 @@ function Students() {
     const body = { nome, sobrenome, email, idade, peso, altura };
 
     try {
-      setLoading(true);
+      if (!nome || !sobrenome) {
+        return toast.error('Student must have a name and last name');
+      }
+      if (altura > 2.1 || altura < 1) {
+        return toast.error('invalid height');
+      }
+      if (peso < 40 || peso > 250) {
+        return toast.error('invalid weight');
+      }
+      if (idade < 6 || idade > 30) {
+        return toast.error('student age invalid');
+      }
 
+      setLoading(true);
       await axios.put(`/alunos/update/${id}`, body);
 
       if (photo) {
@@ -120,14 +132,13 @@ function Students() {
       }
       toast.success('Student edited');
       setLoading(false);
-      navigate('/students');
+      return navigate('/students');
     } catch (err) {
-      if (Array.isArray(err.response?.data?.errors)) {
-        err.response.data.errors.forEach((erro) => toast.error(erro));
-      } else {
-        toast.error(err.message || 'An error occurred');
-      }
       setLoading(false);
+      if (Array.isArray(err.response?.data?.errors)) {
+        return err.response.data.errors.forEach((erro) => toast.error(erro));
+      }
+      return toast.error(err.message || 'An error occurred');
     }
   };
 

@@ -3,8 +3,9 @@ import styled from 'styled-components';
 // styling Nav, size, and cotents positions
 export const Container = styled.div`
   position: absolute;
+  min-height: 100%;
   width: 100%;
-  height: 100%;
+  height: 150%;
   top: 0;
   left: 0;
   z-index: 1;

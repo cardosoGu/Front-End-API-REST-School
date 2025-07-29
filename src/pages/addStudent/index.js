@@ -34,7 +34,6 @@ function AddStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const data = { nome, sobrenome, email, idade, peso, altura };
 
@@ -51,6 +50,8 @@ function AddStudent() {
       if (idade < 6 || idade > 30) {
         return toast.error('student age invalid');
       }
+
+      setLoading(true);
 
       const response = await axios.post('/alunos/store', data);
       const { id } = response.data;
