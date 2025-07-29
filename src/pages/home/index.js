@@ -12,14 +12,9 @@ function Home() {
       <Title>Welcome, {name} 👋</Title>
 
       <Paragraph>
-        I`m a self-taught dev focused on web development. This project is a full
-        CRUD system for managing students and users. All built with React,
-        Redux, and Node.js.
-      </Paragraph>
-
-      <Paragraph>
-        I`m 17, passionate about coding and ready for my first opportunity in
-        tech.
+        Full-stack system for managing students and users with CRUD, JWT auth,
+        and photo uploads. Built using React, Redux, Node.js, Express, and
+        PostgreSQL.
       </Paragraph>
 
       <TechList>
